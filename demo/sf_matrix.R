@@ -1,5 +1,5 @@
-
 library(sf)
+library(ggplot2)
 library(RspatialPkg)
 
 # ------------------------Set the point geometry in a matrix----------------
