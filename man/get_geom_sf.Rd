@@ -36,6 +36,13 @@ get_geom_sf(
   sf_alpha = 1,
   inherit_aes = TRUE,
   na_rm = FALSE,
+  scale_breaks = waiver(),
+  scale_values = NULL,
+  scale_limits = NULL,
+  scale_labels = NULL,
+  scale_colors = heat.colors(8),
+  scale_na_value = "gray50",
+  own_scale = FALSE,
   show_legend = TRUE,
   legend_pos = "right",
   legend_key_width = 0.5,
@@ -51,7 +58,9 @@ only a geom object is returned for subsequent adding.}
 
 \item{aes_color}{The variable name from \code{sf} for the dependent aesthetic mapping for color.}
 
-\item{aes_fill}{The variable name from \code{sf} for the dependent aesthetic mapping for fill.}
+\item{aes_fill}{The variable name from \code{sf} for the dependent aesthetic mapping for fill.
+If the variable is a discrete factor, see ggplot2::scale_fill_manual() for appropriate scaling values.
+If the variable is continuous, see ggplot2::scale_fill_gradientn().}
 
 \item{aes_size}{The variable name from \code{sf} for the dependent aesthetic mapping for point size.}
 
@@ -111,6 +120,22 @@ The default is "black". Set it to NA to eliminate the border rectangle entirely.
 \item{na_rm}{A logical which if TRUE, missing observations are removed. If FALSE, the default,
 missing observations are removed with a warning.}
 
+\item{scale_breaks}{A string/numeric vector that defines the scale breaks.}
+
+\item{scale_values}{A string/numeric vector that defines the possible values.}
+
+\item{scale_limits}{A string/numeric vector that defines the scale limits.}
+
+\item{scale_labels}{An optional string vector that defines the scale labels. Vector must be the same length
+as \code{scale_breaks}.}
+
+\item{scale_colors}{Vector of colors to use for n-color gradient.}
+
+\item{scale_na_value}{A string that sets the color for missing values.}
+
+\item{own_scale}{A logical which if TRUE, then your own scaling may be appended to the plot without using the above
+scale_* parameters.}
+
 \item{show_legend}{A logical that controls the appearance of the legend.}
 
 \item{legend_pos}{A string that sets the legend position. Acceptable values are
@@ -132,6 +157,9 @@ The function is a wrapper around ggplot2::geom_sf that plots simple feature obje
 The function is a wrapper around ggplot2::geom_sf. It accepts objects of class
 sf for visualizing their points, lines, and polygon geometries.  The function provides
 parameters for controlling color, size, variable aesthetic mapping, and text labeling.
+
+If a variable for size, color, or fill aesthetic mapping is defined, then parameters for scaling
+the variable are provided.
 
 See \href{https://r-spatial.github.io/sf/articles/sf1.html}{Simple Features for R}
 for more information on simple features.

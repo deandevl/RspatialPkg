@@ -12,14 +12,6 @@ RspatialPkg::get_geom_raster(
   aes_y = "eruptions",
   aes_fill = "density",
   title = "2d density estimate of Old Faithful data",
-  subtitle = "Source: ggplot2::faithfuld"
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  subtitle = "Source: ggplot2::faithfuld",
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )

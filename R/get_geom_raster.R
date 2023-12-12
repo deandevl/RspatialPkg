@@ -7,6 +7,9 @@
 #'  that will be mapped as a color or fill aesthetic. Function provides additional
 #'  ggplot2 text labeling and axis scaling.
 #'
+#' If a variable for color or fill aesthetic mapping is defined, then parameters for scaling
+#'   the variable are provided.
+#'
 #' @param df The data.frame to be plotted (required).
 #' @param aes_x The name of aesthetic variable from \code{x} for the x dimension. (required)
 #' @param aes_y The name of aesthetic variable from \code{x} for the y dimension. (required)
@@ -37,6 +40,15 @@
 #' @param y_major_breaks A numeric vector or function that defines the exact major tic locations along the y axis.
 #' @param y_minor_breaks A numeric vector or function that defines the exact minor tic locations along the y axis.
 #' @param y_labels A character vector with the same length as \code{y_major_breaks}, that labels the major tics.
+#' @param scale_breaks A string/numeric vector that defines the scale breaks.
+#' @param scale_values A string/numeric vector that defines the possible values.
+#' @param scale_limits A string/numeric vector that defines the scale limits.
+#' @param scale_labels An optional string vector that defines the scale labels. Vector must be the same length
+#' as \code{scale_breaks}.
+#' @param scale_colors Vector of colors to use for n-color gradient.
+#' @param scale_na_value A string that sets the color for missing values.
+#' @param own_scale A logical which if TRUE, then your own scaling may be appended to the plot without using the above
+#'   scale_* parameters.
 #' @param show_legend A logical that controls the appearance of the legend.
 #' @param legend_pos A string that sets the legend position. Acceptable values are
 #'  "top", "bottom", "left", "right".
@@ -78,6 +90,13 @@ get_geom_raster <- function(
   y_major_breaks = waiver(),
   y_minor_breaks = waiver(),
   y_labels = waiver(),
+  scale_breaks = waiver(),
+  scale_values = NULL,
+  scale_limits = NULL,
+  scale_labels = NULL,
+  scale_colors = heat.colors(8),
+  scale_na_value = "gray50",
+  own_scale = FALSE,
   show_legend = TRUE,
   legend_pos = "right",
   legend_key_width = 0.5,
@@ -187,6 +206,53 @@ get_geom_raster <- function(
     minor_breaks = y_minor_breaks,
     labels = y_labels
   )
+
+  # -------------------scaling related parameters--------------------
+  if(!own_scale){
+    if(!is.null(aes_fill)) {
+      if(is.factor(df[[aes_fill]])){
+        aplot <- aplot +
+          ggplot2::scale_fill_manual(
+            breaks = scale_breaks,
+            values = scale_values,
+            limits = scale_limits,
+            labels = scale_labels,
+            na.value = scale_na_value
+          )
+      }else{
+        aplot <- aplot +
+          ggplot2::scale_fill_gradientn(
+            breaks = scale_breaks,
+            limits = scale_limits,
+            labels = scale_labels,
+            colors = scale_colors,
+            values = scale_values,
+            na.value = scale_na_value
+          )
+      }
+    }else if(!is.null(aes_color)){
+      if(is.factor(df[[aes_color]])){
+        aplot <- aplot +
+          ggplot2::scale_color_manual(
+            breaks = scale_breaks,
+            values = scale_values,
+            limits = scale_limits,
+            labels = scale_labels,
+            na.value = scale_na_value
+          )
+      }else{
+        aplot <- aplot +
+          ggplot2::scale_color_gradientn(
+            breaks = scale_breaks,
+            limits = scale_limits,
+            labels = scale_labels,
+            colors = scale_colors,
+            values = scale_values,
+            na.value = scale_na_value
+          )
+      }
+    }
+  }
 
   # -------------------legend related parameters---------------------------
   if(!show_legend){

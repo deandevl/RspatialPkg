@@ -29,6 +29,13 @@ get_geom_raster(
   y_major_breaks = waiver(),
   y_minor_breaks = waiver(),
   y_labels = waiver(),
+  scale_breaks = waiver(),
+  scale_values = NULL,
+  scale_limits = NULL,
+  scale_labels = NULL,
+  scale_colors = heat.colors(8),
+  scale_na_value = "gray50",
+  own_scale = FALSE,
   show_legend = TRUE,
   legend_pos = "right",
   legend_key_width = 0.5,
@@ -91,6 +98,22 @@ Use \code{NA} to refer to the existing minimum and maximum.}
 
 \item{y_labels}{A character vector with the same length as \code{y_major_breaks}, that labels the major tics.}
 
+\item{scale_breaks}{A string/numeric vector that defines the scale breaks.}
+
+\item{scale_values}{A string/numeric vector that defines the possible values.}
+
+\item{scale_limits}{A string/numeric vector that defines the scale limits.}
+
+\item{scale_labels}{An optional string vector that defines the scale labels. Vector must be the same length
+as \code{scale_breaks}.}
+
+\item{scale_colors}{Vector of colors to use for n-color gradient.}
+
+\item{scale_na_value}{A string that sets the color for missing values.}
+
+\item{own_scale}{A logical which if TRUE, then your own scaling may be appended to the plot without using the above
+scale_* parameters.}
+
 \item{show_legend}{A logical that controls the appearance of the legend.}
 
 \item{legend_pos}{A string that sets the legend position. Acceptable values are
@@ -113,6 +136,9 @@ columns for x and y coordinates along with an associated numeric attribute.
 The function accepts a data frame with columns for numeric x/y values and an attribute
 that will be mapped as a color or fill aesthetic. Function provides additional
 ggplot2 text labeling and axis scaling.
+
+If a variable for color or fill aesthetic mapping is defined, then parameters for scaling
+the variable are provided.
 }
 \author{
 Rick Dean

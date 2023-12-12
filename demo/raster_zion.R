@@ -15,16 +15,10 @@ zion_park_plot <- RspatialPkg::get_geom_raster(
   aes_y = "y",
   aes_fill = "srtm",
   title = "Elevations from Zion National Park",
-  subtitle = "Conversion from SpatRaster to data frame to geom_raster"
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  subtitle = "Conversion from SpatRaster to data frame to geom_raster",
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
+  scale_breaks = seq(from = 1000, to = 3000, by = 250),
+  scale_labels = seq(from = 1000, to = 3000, by = 250)
 )
 zion_park_plot
 

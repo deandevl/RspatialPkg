@@ -16,16 +16,10 @@ scratch_plot <- RspatialPkg::get_geom_raster(
   title = "Scratch data frame to geom_raster",
   subtitle = "6x6 grid -1.5 to 1.5 with 0.6 resolution",
   x_major_breaks = seq(from = -1.5, to = 1.5, by = 0.6),
-  y_major_breaks = seq(from = -1.5, to = 1.5, by = 0.6)
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  y_major_breaks = seq(from = -1.5, to = 1.5, by = 0.6),
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
+  scale_breaks = seq(from = 0.0, to = 4.0, by = 0.5),
+  scale_labels = seq(from = 0.0, to = 4.0, by = 0.5)
 )
 
 scratch_plot

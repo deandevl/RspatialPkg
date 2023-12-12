@@ -28,17 +28,9 @@ elev_plot <- RspatialPkg::get_geom_raster(
   title = "A Scratch 6x6 cell Raster With Values 1 to 36",
   subtitle = "X-Y extents: -1.5 to 1.5",
   x_major_breaks = seq(from = -1.25, to = 1.25, by = 0.5),
-  y_major_breaks = seq(from = -1.25, to = 1.25, by = 0.5)
-) +
-  ggplot2::scale_fill_gradientn(
-    colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-    n.breaks = 8
-  ) +
-  ggplot2::guides(
-    fill = ggplot2::guide_colorbar(
-      ticks.colour = "black"
-    )
-  )
+  y_major_breaks = seq(from = -1.25, to = 1.25, by = 0.5),
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
+)
 elev_plot
 
 # Creating a clipping raster object
@@ -62,16 +54,8 @@ clip_plot <- RspatialPkg::get_geom_raster(
   aes_fill = "Clipper",
   title = "A Clipping 3x6 Raster",
   subtitle = "Resolution: 0.3--Extent: 0, 1.8, -0.45, 0.45  (xmin, xmax, ymin, ymax)",
-  show_legend = F
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  show_legend = F,
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
 clip_plot
 
@@ -94,15 +78,7 @@ elev_sub_plot <- RspatialPkg::get_geom_raster(
   aes_fill = "Scratch",
   title = "A 2x3 Sub-Raster",
   subtitle = "Resolution: 0.5--Extent: 0, 1.5, -0.5, 0.5",
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
 elev_sub_plot
 
@@ -119,15 +95,7 @@ elev_sub_ids_plot <- RspatialPkg::get_geom_raster(
   aes_y = "y",
   aes_fill = "Scratch",
   title = "A 3x3 Sub-Raster Using Cell IDs",
-  subtitle = "Cells 3 to 5 along y; Cells 2 to 4 along x--Extent: -1, 0.5, -1, 0.5"
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  subtitle = "Cells 3 to 5 along y; Cells 2 to 4 along x--Extent: -1, 0.5, -1, 0.5",
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
 elev_sub_ids_plot

@@ -32,15 +32,9 @@ elev_scratch_plot <- RspatialPkg::get_geom_raster(
   aes_fill = "Scratch",
   title = "A Scratch 6x6 cell Raster With Values 1 to 36",
   subtitle = "X-Y extents: -1.5 to 1.5",
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
+  scale_breaks = seq(from = 0, to = 40, by = 5),
+  scale_labels = seq(from = 0, to = 40, by = 5)
 )
 elev_scratch_plot
 
@@ -62,15 +56,9 @@ elev_scratch_2_df_plot <- RspatialPkg::get_geom_raster(
   df = df,
   aes_x = "x",
   aes_y = "y",
-  aes_fill = "z"
-) +
-ggplot2::scale_fill_gradientn(
-  colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
-  n.breaks = 8
-) +
-ggplot2::guides(
-  fill = ggplot2::guide_colorbar(
-    ticks.colour = "black"
-  )
+  aes_fill = "z",
+  scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd"),
+  scale_breaks = seq(from = 0, to = 40, by = 5),
+  scale_labels = seq(from = 0, to = 40, by = 5)
 )
 elev_scratch_2_df_plot

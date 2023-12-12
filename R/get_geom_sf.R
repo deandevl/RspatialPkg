@@ -6,6 +6,9 @@
 #'   sf for visualizing their points, lines, and polygon geometries.  The function provides
 #'   parameters for controlling color, size, variable aesthetic mapping, and text labeling.
 #'
+#' If a variable for size, color, or fill aesthetic mapping is defined, then parameters for scaling
+#'   the variable are provided.
+#'
 #' See \href{https://r-spatial.github.io/sf/articles/sf1.html}{Simple Features for R}
 #'   for more information on simple features.
 #'
@@ -17,6 +20,8 @@
 #'  only a geom object is returned for subsequent adding.
 #' @param aes_color The variable name from \code{sf} for the dependent aesthetic mapping for color.
 #' @param aes_fill The variable name from \code{sf} for the dependent aesthetic mapping for fill.
+#'   If the variable is a discrete factor, see ggplot2::scale_fill_manual() for appropriate scaling values.
+#'   If the variable is continuous, see ggplot2::scale_fill_gradientn().
 #' @param aes_size The variable name from \code{sf} for the dependent aesthetic mapping for point size.
 #' @param aes_text The variable name from \code{sf} for the dependent aesthetic mapping for text labeling.
 #' @param text_size A numeric value that sets the size of aesthetic mapping of text (i.e. aes_text)
@@ -48,6 +53,15 @@
 #' @param inherit_aes A logical which if FALSE the aesthetics are not combined with other overlapping geoms.
 #' @param na_rm A logical which if TRUE, missing observations are removed. If FALSE, the default,
 #'   missing observations are removed with a warning.
+#' @param scale_breaks A string/numeric vector that defines the scale breaks.
+#' @param scale_values A string/numeric vector that defines the possible values.
+#' @param scale_limits A string/numeric vector that defines the scale limits.
+#' @param scale_labels An optional string vector that defines the scale labels. Vector must be the same length
+#' as \code{scale_breaks}.
+#' @param scale_colors Vector of colors to use for n-color gradient.
+#' @param scale_na_value A string that sets the color for missing values.
+#' @param own_scale A logical which if TRUE, then your own scaling may be appended to the plot without using the above
+#'   scale_* parameters.
 #' @param show_legend A logical that controls the appearance of the legend.
 #' @param legend_pos A string that sets the legend position. Acceptable values are
 #'  "top", "bottom", "left", "right".
@@ -96,6 +110,13 @@ get_geom_sf <- function(
     sf_alpha = 1.0,
     inherit_aes = TRUE,
     na_rm = FALSE,
+    scale_breaks = waiver(),
+    scale_values = NULL,
+    scale_limits = NULL,
+    scale_labels = NULL,
+    scale_colors = heat.colors(8),
+    scale_na_value = "gray50",
+    own_scale = FALSE,
     show_legend = TRUE,
     legend_pos = "right",
     legend_key_width = 0.5,
@@ -270,6 +291,70 @@ get_geom_sf <- function(
         )
     }
 
+    # -------------------scaling related parameters--------------------
+    if(!own_scale){
+      if(!is.null(aes_fill)) {
+        if(is.factor(sf[[aes_fill]])){
+          aplot <- aplot +
+            ggplot2::scale_fill_manual(
+              breaks = scale_breaks,
+              values = scale_values,
+              limits = scale_limits,
+              labels = scale_labels,
+              na.value = scale_na_value
+            )
+        }else{
+          aplot <- aplot +
+            ggplot2::scale_fill_gradientn(
+              breaks = scale_breaks,
+              limits = scale_limits,
+              labels = scale_labels,
+              colors = scale_colors,
+              values = scale_values,
+              na.value = scale_na_value
+            )
+        }
+      }else if(!is.null(aes_color)){
+        if(is.factor(sf[[aes_color]])){
+          aplot <- aplot +
+            ggplot2::scale_color_manual(
+              breaks = scale_breaks,
+              values = scale_values,
+              limits = scale_limits,
+              labels = scale_labels,
+              na.value = scale_na_value
+            )
+        }else{
+          aplot <- aplot +
+            ggplot2::scale_color_gradientn(
+              breaks = scale_breaks,
+              limits = scale_limits,
+              labels = scale_labels,
+              colors = scale_colors,
+              values = scale_values,
+              na.value = scale_na_value
+            )
+        }
+      }else if(!is.null(aes_size)){
+        if(is.factor(sf[[aes_size]])){
+          aplot <- aplot +
+            ggplot2::scale_size_manual(
+              breaks = scale_breaks,
+              values = scale_values,
+              limits = scale_limits,
+              labels = scale_labels,
+              na.value = scale_na_value
+            )
+        }else{
+          aplot <- aplot +
+            ggplot2::scale_size(
+              breaks = scale_breaks,
+              limits = scale_limits,
+              labels = scale_labels
+            )
+        }
+      }
+    }
     # -------------------legend related parameters---------------------------
     if(!show_legend){
       aplot <- aplot +
