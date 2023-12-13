@@ -148,6 +148,7 @@ get_geom_sf <- function(
     inherit.aes = inherit_aes,
     na.rm = na_rm
   )
+
   if(!adding){
     aplot <- ggplot2::ggplot() + a_geom
   }else {
@@ -166,6 +167,7 @@ get_geom_sf <- function(
       alpha = sf_alpha,
       inherit.aes = inherit_aes
     )
+
     if(adding){
       aplot <- a_geom
     }else {
@@ -185,6 +187,7 @@ get_geom_sf <- function(
       alpha = sf_alpha,
       inherit.aes = inherit_aes
     )
+
     if(adding){
       aplot <- a_geom
     }else {
@@ -204,6 +207,7 @@ get_geom_sf <- function(
       alpha = sf_alpha,
       inherit.aes = inherit_aes
     )
+
     if(adding){
       aplot <- a_geom
     }else {
@@ -355,6 +359,7 @@ get_geom_sf <- function(
         }
       }
     }
+
     # -------------------legend related parameters---------------------------
     if(!show_legend){
       aplot <- aplot +

@@ -1,5 +1,7 @@
 library(ggplot2)
 library(sf)
+library(magrittr)
+library(data.table)
 library(spData)
 library(RColorBrewer)
 library(RspatialPkg)
@@ -32,19 +34,37 @@ world_centroids_sf <- cbind(world_centroids_sf, cex_v)
 #   size reflect the country's scaled pop numbers
 # Map the fill aesthetic to the variable "continent" of the spData::world simple feature
 # Map the size aesthetic to the variable "cex_v" of the world_centroids_sf simple feature
+#
+
+world_sf <- data.table::as.data.table(spData::world) %>%
+  .[, continent := as.factor(continent)] %>%
+  sf::st_as_sf(.)
+
+continents <- unique(world_sf$continent)
+colors <- RColorBrewer::brewer.pal(8, "Set1")
+names(colors) <- continents
+
 world_centroid_pop_plot <- RspatialPkg::get_geom_sf(
-  sf = spData::world,
+  sf = world_sf,
   aes_fill = "continent",
   title = "Overlaid circles representing country populations",
-  center_titles = T
-) +
-RspatialPkg::get_geom_sf(
+  center_titles = T,
+  scale_breaks = continents,
+  scale_labels = continents,
+  scale_values = colors,
+  na_rm = T
+) + RspatialPkg::get_geom_sf(
   sf = world_centroids_sf,
   aes_size = "cex_v",
   sf_shape = 21,
   sf_fill = "darkred",
+  na_rm = T,
   adding = T
-)
+) + ggplot2::scale_size(
+      breaks = seq(0, 4, 0.5),
+      labels = seq(0, 4, 0.5),
+   )
+
 world_centroid_pop_plot
 
 
