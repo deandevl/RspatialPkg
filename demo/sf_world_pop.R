@@ -16,7 +16,9 @@ world_pop_plot <- RspatialPkg::get_geom_sf(
   aes_fill = "pop",
   title = "World Population",
   center_titles = T,
-  legend_key_width = 0.8
+  legend_key_width = 0.8,
+  panel_color = "lightblue",
+  grid_line_color = "black"
 )
 world_pop_plot
 
@@ -30,7 +32,8 @@ world_pop_2_plot <- RspatialPkg::get_geom_sf(
   legend_key_height = 1.0,
   scale_breaks = seq(0, 140000, 20000),
   scale_limits = c(0, 140000),
-  scale_labels = seq(0, 140000, 20000),
+  panel_color = "lightblue",
+  grid_line_color = "black"
 )
 world_pop_2_plot
 

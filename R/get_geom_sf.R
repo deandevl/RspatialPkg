@@ -39,10 +39,14 @@
 #' @param y_title A string that sets the y axis title. If NULL (the default)  then the y axis title does not appear.
 #' @param hide_x_tics A logical that controls the appearance of the x axis tics.
 #' @param hide_y_tics A logical that controls the appearance of the y axis tics.
+#' @param grid_line_color A string in hexidecimal or color name that sets the plot major grid line color.
+#'   The default is NULL and takes on ggplot2's default white.
+#' @param grid_line_size A numeric that sets the grid line's width. The default is 1.
 #' @param panel_color A string in hexidecimal or color name that sets the plot panel's color.
-#'   The default is "white".
+#'   The default is NULL and takes on ggplot2's default gray..
 #' @param panel_border_color A string in hexidecimal or color name that sets the plot panel's border color.
 #'   The default is "black". Set it to NA to eliminate the border rectangle entirely.
+#' @param panel_expand A logical which if TRUE, expands the plot panel and potentially hides the tics. The default is FALSE.
 #' @param sf_color A string that sets the color attribute of the sf.
 #' @param sf_fill A string that sets the fill color attribute of the sf.
 #' @param sf_stroke A numeric that sets the drawing stroke width attribute for a sf point geometry.
@@ -99,8 +103,11 @@ get_geom_sf <- function(
     y_title = NULL,
     hide_x_tics = FALSE,
     hide_y_tics = FALSE,
-    panel_color = "white",
+    grid_line_color = NULL,
+    grid_line_size = 1,
+    panel_color = NULL,
     panel_border_color = "black",
+    panel_expand = FALSE,
     sf_color = "black",
     sf_fill = "gray",
     sf_stroke = 0.1,
@@ -113,7 +120,7 @@ get_geom_sf <- function(
     scale_breaks = waiver(),
     scale_values = NULL,
     scale_limits = NULL,
-    scale_labels = NULL,
+    scale_labels = waiver(),
     scale_colors = heat.colors(8),
     scale_na_value = "gray50",
     own_scale = FALSE,
@@ -254,11 +261,19 @@ get_geom_sf <- function(
     aplot <- aplot + labs(title = title, subtitle = subtitle, caption = caption)
 
     # --------------------panel and grids---------------------
-    aplot <- aplot +
-      theme(
+    if(!is.null(panel_color)){
+      aplot <- aplot + theme(
         panel.background = element_rect(fill = panel_color, color = panel_border_color, size = 2)
       )
+    }
+    if(!is.null(grid_line_color)){
+      aplot <- aplot + theme(
+        panel.grid.major = element_line(color = grid_line_color, size = grid_line_size)
+      )
+    }
 
+    # panel expansion?
+    aplot <- aplot + coord_sf(expand = panel_expand)
     # --------------------x/y axis titles------------------------
     if(is.null(x_title)) {
       aplot <- aplot +

@@ -2,6 +2,9 @@ library(ggplot2)
 library(RspatialPkg)
 library(spData)
 
+library(rnaturalearth)
+library(rnaturalearthdata)
+
 # Subset the simple feature data.frame of `spData::world`
 #   where continent equals "Asia":
 world_asia_sf <- spData::world[spData::world$continent == "Asia", ]
@@ -28,4 +31,18 @@ layer_world_asia_plot <-
     adding = T
 )
 layer_world_asia_plot
+
+# comparing default ggplot2::geom_sf with RspatialPkg::get_geom_sf
+world_sf <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+ggplot2::ggplot(data = world_sf) +
+  geom_sf() +
+  coord_sf(expand = FALSE)
+
+world_plot <- RspatialPkg::get_geom_sf(
+  sf = world_sf,
+  panel_color = "lightblue",
+  grid_line_color = "navy"
+)
+world_plot
+
 

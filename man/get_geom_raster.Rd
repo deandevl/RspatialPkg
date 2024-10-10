@@ -32,7 +32,7 @@ get_geom_raster(
   scale_breaks = waiver(),
   scale_values = NULL,
   scale_limits = NULL,
-  scale_labels = NULL,
+  scale_labels = waiver(),
   scale_colors = heat.colors(8),
   scale_na_value = "gray50",
   own_scale = FALSE,

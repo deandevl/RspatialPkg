@@ -14,10 +14,12 @@ oz_states_plot <- RspatialPkg::get_geom_sf(
   sf = ozmaps::ozmap_states,
   aes_text = "NAME",
   sf_fill = "blue",
-  text_color = "yellow",
+  text_color = "red",
   text_size = 4.0,
   text_fontface = "italic",
   text_check_overlap = TRUE,
-  panel_color = "brown"
+  panel_color = "brown",
+  hide_x_tics = TRUE,
+  hide_y_tics = TRUE
 )
 oz_states_plot
