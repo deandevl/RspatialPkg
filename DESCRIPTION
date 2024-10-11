@@ -1,6 +1,6 @@
 Package: RspatialPkg
 Title: Spatial Related Functions
-Version: 0.0.0.9000
+Version: 0.0.1.9000
 Author: Rick Dean, <deanr3@bardstown.com>
 Maintainer: Rick Dean, <deanr3@bardstown.com>
 Description: Provides spatial related plotting and acquisition.
