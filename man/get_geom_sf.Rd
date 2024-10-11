@@ -25,8 +25,11 @@ get_geom_sf(
   y_title = NULL,
   hide_x_tics = FALSE,
   hide_y_tics = FALSE,
-  panel_color = "white",
+  grid_line_color = NULL,
+  grid_line_size = 1,
+  panel_color = NULL,
   panel_border_color = "black",
+  panel_expand = FALSE,
   sf_color = "black",
   sf_fill = "gray",
   sf_stroke = 0.1,
@@ -95,11 +98,18 @@ Acceptable values: "plain", "bold", "italic", "bold.italic". The default is "pla
 
 \item{hide_y_tics}{A logical that controls the appearance of the y axis tics.}
 
+\item{grid_line_color}{A string in hexidecimal or color name that sets the plot major grid line color.
+The default is NULL and takes on ggplot2's default white.}
+
+\item{grid_line_size}{A numeric that sets the grid line's width. The default is 1.}
+
 \item{panel_color}{A string in hexidecimal or color name that sets the plot panel's color.
-The default is "white".}
+The default is NULL and takes on ggplot2's default gray..}
 
 \item{panel_border_color}{A string in hexidecimal or color name that sets the plot panel's border color.
 The default is "black". Set it to NA to eliminate the border rectangle entirely.}
+
+\item{panel_expand}{A logical which if TRUE, expands the plot panel and potentially hides the tics. The default is FALSE.}
 
 \item{sf_color}{A string that sets the color attribute of the sf.}
 
