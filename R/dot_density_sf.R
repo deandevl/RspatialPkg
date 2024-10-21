@@ -60,6 +60,5 @@ dot_density_sf <- function(
     )
     dots_sf <- sf::st_as_sf(dots_spa_v)
   }
-  dots_sf <- sf::st_filter(dots_sf, sf)
   return(dots_sf)
 }
