@@ -4,7 +4,7 @@ Version: 0.0.1.9000
 Author: Rick Dean, <deanr3@bardstown.com>
 Maintainer: Rick Dean, <deanr3@bardstown.com>
 Description: Provides spatial related plotting and acquisition.
-Imports: ggplot2, sf, rlang
+Imports: ggplot2, sf, rlang, data.table, purrr, terra
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
