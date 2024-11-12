@@ -1,0 +1,14 @@
+raster_clip                   raster clipping
+raster_faithful               raster of old faithful eruption times
+raster_scratch_1              raster from scratch
+raster_scratch_2              raster from scratch
+raster_zion                   raster of zion park elevations
+sf_geometries                 sf of scratch line, point, polygon
+sf_india_overlap_world        sf of india over world
+sf_label_australia            sf of australia and labelled cities
+sf_matrix                     sf from matrix
+sf_union_asia_over_world      sf of unionized asia over world
+sf_world_centroid_pop         sf of continent centroids and pop.
+sf_world_pop                  sf of world with pop. with legend
+sf_xy_limits                  sf limit world to north america
+dot_density_sf_d              demo that creates a SpatVector object for dot-density maps
