@@ -38,6 +38,8 @@
 #' @param y_title A string that sets the y axis title. If NULL (the default)  then the y axis title does not appear.
 #' @param hide_x_tics A logical that controls the appearance of the x axis tics.
 #' @param hide_y_tics A logical that controls the appearance of the y axis tics.
+#' @param xlim A numeric vector pair of longitudinal values for zooming in/out the mapping
+#' @param ylim A numeric vector pair of latitudinal values for zooming in/out the mapping
 #' @param grid_line_color A string in hexidecimal or color name that sets the plot major grid line color.
 #'   The default is NULL and takes on ggplot2's default white.
 #' @param grid_line_size A numeric that sets the grid line's width. The default is 1.
@@ -102,6 +104,8 @@ get_geom_sf <- function(
     y_title = NULL,
     hide_x_tics = FALSE,
     hide_y_tics = FALSE,
+    xlim = NULL,
+    ylim = NULL,
     grid_line_color = NULL,
     grid_line_size = 1,
     panel_color = NULL,
@@ -374,6 +378,15 @@ get_geom_sf <- function(
       }
     }
 
+    # ----------------------zoom parameters-----------------
+    if(!is.null(xlim)){
+      aplot <- aplot +
+        ggplot2::coord_sf(xlim = xlim)
+    }
+    if(!is.null(ylim)){
+      aplot <- aplot +
+        ggplot2::coord_sf(ylim = ylim)
+    }
     # -------------------legend related parameters---------------------------
     if(!show_legend){
       aplot <- aplot +

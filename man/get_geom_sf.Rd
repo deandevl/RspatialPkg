@@ -25,6 +25,8 @@ get_geom_sf(
   y_title = NULL,
   hide_x_tics = FALSE,
   hide_y_tics = FALSE,
+  xlim = NULL,
+  ylim = NULL,
   grid_line_color = NULL,
   grid_line_size = 1,
   panel_color = NULL,
@@ -97,6 +99,10 @@ Acceptable values: "plain", "bold", "italic", "bold.italic". The default is "pla
 \item{hide_x_tics}{A logical that controls the appearance of the x axis tics.}
 
 \item{hide_y_tics}{A logical that controls the appearance of the y axis tics.}
+
+\item{xlim}{A numeric vector pair of longitudinal values for zooming in/out the mapping}
+
+\item{ylim}{A numeric vector pair of latitudinal values for zooming in/out the mapping}
 
 \item{grid_line_color}{A string in hexidecimal or color name that sets the plot major grid line color.
 The default is NULL and takes on ggplot2's default white.}
