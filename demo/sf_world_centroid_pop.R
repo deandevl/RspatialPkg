@@ -11,7 +11,7 @@ library(RspatialPkg)
 
 # Show spData::world simple feature object
 # Note that the geometry type is MULTIPOLYGON
-spData::world
+head(spData::world)
 
 # Transform/project the geometries of spData::world to crs = "+proj=eck4"
 world_proj_sf <- sf::st_transform(spData::world, crs = "+proj=eck4")
@@ -22,7 +22,7 @@ world_centroids_sf <- sf::st_centroid(world_proj_sf, of_largest_polygon = TRUE)
 
 # Show the world_centroids_sf simple feature object
 # Note that the geometry type is now POINT
-world_centroids_sf
+head(world_centroids_sf)
 
 # Create a vector that holds a scaling of the raw population numbers
 cex_v <- sqrt(spData::world$pop) / 10000
@@ -44,7 +44,7 @@ continents <- unique(world_sf$continent)
 colors <- RColorBrewer::brewer.pal(8, "Set1")
 names(colors) <- continents
 
-world_centroid_pop_plot <- RspatialPkg::get_geom_sf(
+RspatialPkg::get_geom_sf(
   sf = world_sf,
   aes_fill = "continent",
   title = "Overlaid circles representing country populations",
@@ -53,21 +53,16 @@ world_centroid_pop_plot <- RspatialPkg::get_geom_sf(
   scale_labels = continents,
   scale_values = colors,
   na_rm = T
-) + RspatialPkg::get_geom_sf(
+) %>%
+RspatialPkg::get_geom_sf(
   sf = world_centroids_sf,
   aes_size = "cex_v",
   sf_shape = 21,
   sf_fill = "darkred",
-  na_rm = T,
-  adding = T
-) + ggplot2::scale_size(
-      breaks = seq(0, 4, 0.5),
-      labels = seq(0, 4, 0.5),
-   )
-
-world_centroid_pop_plot
-
-
-
-
+  na_rm = T
+) +
+ggplot2::scale_size(
+  breaks = seq(0, 4, 0.5),
+  labels = seq(0, 4, 0.5)
+)
 

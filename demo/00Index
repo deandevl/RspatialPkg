@@ -5,7 +5,7 @@ raster_scratch_2              raster from scratch
 raster_zion                   raster of zion park elevations
 sf_geometries                 sf of scratch line, point, polygon
 sf_india_overlap_world        sf of india over world
-sf_label_australia            sf of australia and labelled cities
+sf_label_zoom_australia       sf of australia labelled cities; zoom to w.australia
 sf_matrix                     sf from matrix
 sf_union_asia_over_world      sf of unionized asia over world
 sf_world_centroid_pop         sf of continent centroids and pop.

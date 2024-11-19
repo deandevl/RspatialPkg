@@ -27,8 +27,8 @@ data_dt <- data.table::as.data.table(data_spa_v)
 data_dt[, `:=`(population = 1000*(1:12)^2, geometry = terra::geom(data_spa_v, wkb=TRUE))]
 # convert data.tabe to sf object
 data_sf <- sf::st_as_sf(data_dt, sf_column_name = "geometry")
-# show structure
-str(data_sf)
+# show simple feature
+head(data_sf)
 
 # create dots SpatVector using RspatialPkg::dot_density_sf()
 dots_sf <- RspatialPkg::dot_density_sf(
@@ -41,11 +41,11 @@ dots_sf <- RspatialPkg::dot_density_sf(
 # plot the dots
 RspatialPkg::get_geom_sf(
   sf = data_sf,
-) +
+) %>%
 RspatialPkg::get_geom_sf(
+  gg = .,
   sf = dots_sf,
   sf_color = "red",
   sf_fill = "red",
-  sf_size = 2,
-  adding = T
+  sf_size = 2
 )

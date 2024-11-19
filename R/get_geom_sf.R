@@ -15,8 +15,7 @@
 #'   see \href{https://r-spatial.org/r/2018/10/25/ggplot2-sf.html}{Drawing beautiful maps programmatically with R, sf and ggplot2}.
 #'
 #' @param sf A simple features object of class "sf".
-#' @param adding A logical which if TRUE then the ggplot2::ggplot() object is *NOT* created and
-#'  only a geom object is returned for subsequent adding.
+#' @param gg A base ggplot2 object wherein this ggplot2's geom_sf object is layered on.
 #' @param aes_color The variable name from \code{sf} for the dependent aesthetic mapping for color.
 #' @param aes_fill The variable name from \code{sf} for the dependent aesthetic mapping for fill.
 #'   If the variable is a discrete factor, see ggplot2::scale_fill_manual() for appropriate scaling values.
@@ -85,7 +84,7 @@
 #' @export
 get_geom_sf <- function(
     sf,
-    adding = FALSE,
+    gg = NULL,
     aes_color = NULL,
     aes_fill = NULL,
     aes_size = NULL,
@@ -146,6 +145,13 @@ get_geom_sf <- function(
     aes_text <- rlang::sym(aes_text)
   }
   aplot <- NULL
+  adding <- FALSE
+  if(is.null(gg)){
+    gg <- ggplot2::ggplot()
+  }else{
+    adding <- TRUE
+  }
+
   a_geom <- ggplot2::geom_sf(
     data = sf,
     fill = sf_fill,
@@ -158,12 +164,7 @@ get_geom_sf <- function(
     inherit.aes = inherit_aes,
     na.rm = na_rm
   )
-
-  if(!adding){
-    aplot <- ggplot2::ggplot() + a_geom
-  }else {
-    aplot <- a_geom
-  }
+  aplot <- gg + a_geom
 
   if(!is.null(aes_fill)){
     a_geom <- geom_sf(
@@ -175,14 +176,9 @@ get_geom_sf <- function(
       linewidth = sf_linewidth,
       color = sf_color,
       alpha = sf_alpha,
-      inherit.aes = inherit_aes
+      inherit.aes = inherit_aes,
+      na.rm = na_rm
     )
-
-    if(adding){
-      aplot <- a_geom
-    }else {
-      aplot <- aplot + a_geom
-    }
   }
 
   if(!is.null(aes_color)){
@@ -195,14 +191,9 @@ get_geom_sf <- function(
       fill = sf_fill,
       linewidth = sf_linewidth,
       alpha = sf_alpha,
-      inherit.aes = inherit_aes
+      inherit.aes = inherit_aes,
+      na.rm = na_rm
     )
-
-    if(adding){
-      aplot <- a_geom
-    }else {
-      aplot <- aplot + a_geom
-    }
   }
 
   if(!is.null(aes_size)){
@@ -215,14 +206,9 @@ get_geom_sf <- function(
       linewidth = sf_linewidth,
       fill = sf_fill,
       alpha = sf_alpha,
-      inherit.aes = inherit_aes
+      inherit.aes = inherit_aes,
+      na.rm = na_rm
     )
-
-    if(adding){
-      aplot <- a_geom
-    }else {
-      aplot <- aplot + a_geom
-    }
   }
 
   if(!is.null(aes_text)){
@@ -234,18 +220,27 @@ get_geom_sf <- function(
       fontface = text_fontface,
       check_overlap = text_check_overlap,
       nudge_x = text_nudge_x,
-      nudge_y = text_nudge_y
+      nudge_y = text_nudge_y,
+      na.rm = na_rm
     )
-    if(adding){
-      aplot <- a_geom
-    }else {
-      aplot <- aplot + a_geom
-    }
   }
 
+  aplot <- aplot + a_geom
+
   if(adding){
+    aplot <- aplot + ggplot2::coord_sf(
+      xlim = xlim,
+      ylim = ylim,
+      expand = panel_expand
+    )
     return(aplot)
   }else {
+    aplot <- aplot + ggplot2::coord_sf(
+      xlim = xlim,
+      ylim = ylim,
+      expand = panel_expand
+    )
+
     # -------------------Additional ggplot2 components------------------------
     # ----------------------title and subtitle-----------------
     if(center_titles) {
@@ -275,8 +270,6 @@ get_geom_sf <- function(
       )
     }
 
-    # panel expansion?
-    aplot <- aplot + coord_sf(expand = panel_expand)
     # --------------------x/y axis titles------------------------
     if(is.null(x_title)) {
       aplot <- aplot +
@@ -378,15 +371,6 @@ get_geom_sf <- function(
       }
     }
 
-    # ----------------------zoom parameters-----------------
-    if(!is.null(xlim)){
-      aplot <- aplot +
-        ggplot2::coord_sf(xlim = xlim)
-    }
-    if(!is.null(ylim)){
-      aplot <- aplot +
-        ggplot2::coord_sf(ylim = ylim)
-    }
     # -------------------legend related parameters---------------------------
     if(!show_legend){
       aplot <- aplot +

@@ -11,7 +11,7 @@ dt_sf <- data.table::as.data.table(spData::world) %>%
   sf::st_as_sf(.)
 
 # Plot world with a fill aesthetic based on its "pop" attribute with default scaling
-world_pop_plot <- RspatialPkg::get_geom_sf(
+RspatialPkg::get_geom_sf(
   sf = dt_sf,
   aes_fill = "pop",
   title = "World Population",
@@ -20,10 +20,9 @@ world_pop_plot <- RspatialPkg::get_geom_sf(
   panel_color = "lightblue",
   grid_line_color = "black"
 )
-world_pop_plot
 
 # Repeat with defined scaling
-world_pop_2_plot <- RspatialPkg::get_geom_sf(
+RspatialPkg::get_geom_sf(
   sf = dt_sf,
   aes_fill = "pop",
   title = "World Population",
@@ -35,5 +34,3 @@ world_pop_2_plot <- RspatialPkg::get_geom_sf(
   panel_color = "lightblue",
   grid_line_color = "black"
 )
-world_pop_2_plot
-

@@ -6,7 +6,7 @@
 \usage{
 get_geom_sf(
   sf,
-  adding = FALSE,
+  gg = NULL,
   aes_color = NULL,
   aes_fill = NULL,
   aes_size = NULL,
@@ -58,8 +58,7 @@ get_geom_sf(
 \arguments{
 \item{sf}{A simple features object of class "sf".}
 
-\item{adding}{A logical which if TRUE then the ggplot2::ggplot() object is \emph{NOT} created and
-only a geom object is returned for subsequent adding.}
+\item{gg}{A base ggplot2 object wherein this ggplot2's geom_sf object is layered on.}
 
 \item{aes_color}{The variable name from \code{sf} for the dependent aesthetic mapping for color.}
 
