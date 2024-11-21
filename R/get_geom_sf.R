@@ -179,6 +179,28 @@ get_geom_sf <- function(
       inherit.aes = inherit_aes,
       na.rm = na_rm
     )
+    if(!own_scale){  # aes_fill scaling
+      if(is.factor(sf[[aes_fill]])){
+        aplot <- aplot +
+        ggplot2::scale_fill_manual(
+          breaks = scale_breaks,
+          values = scale_values,
+          limits = scale_limits,
+          labels = scale_labels,
+          na.value = scale_na_value
+        )
+      }else{
+        aplot <- aplot +
+        ggplot2::scale_fill_gradientn(
+          breaks = scale_breaks,
+          limits = scale_limits,
+          labels = scale_labels,
+          colors = scale_colors,
+          values = scale_values,
+          na.value = scale_na_value
+        )
+      }
+    }
   }
 
   if(!is.null(aes_color)){
@@ -194,6 +216,28 @@ get_geom_sf <- function(
       inherit.aes = inherit_aes,
       na.rm = na_rm
     )
+    if(!own_scale){ # aes_color scaling
+      if(is.factor(sf[[aes_color]])){
+        aplot <- aplot +
+        ggplot2::scale_color_manual(
+          breaks = scale_breaks,
+          values = scale_values,
+          limits = scale_limits,
+          labels = scale_labels,
+          na.value = scale_na_value
+        )
+      }else{
+        aplot <- aplot +
+        ggplot2::scale_color_gradientn(
+          breaks = scale_breaks,
+          limits = scale_limits,
+          labels = scale_labels,
+          colors = scale_colors,
+          values = scale_values,
+          na.value = scale_na_value
+        )
+      }
+    }
   }
 
   if(!is.null(aes_size)){
@@ -209,6 +253,25 @@ get_geom_sf <- function(
       inherit.aes = inherit_aes,
       na.rm = na_rm
     )
+    if(!own_scale){ #aes_size scaling
+      if(is.factor(sf[[aes_size]])){
+        aplot <- aplot +
+        ggplot2::scale_size_manual(
+          breaks = scale_breaks,
+          values = scale_values,
+          limits = scale_limits,
+          labels = scale_labels,
+          na.value = scale_na_value
+        )
+      }else{
+        aplot <- aplot +
+        ggplot2::scale_size(
+          breaks = scale_breaks,
+          limits = scale_limits,
+          labels = scale_labels
+        )
+      }
+    }
   }
 
   if(!is.null(aes_text)){
@@ -223,6 +286,20 @@ get_geom_sf <- function(
       nudge_y = text_nudge_y,
       na.rm = na_rm
     )
+  }
+
+  # -------------------legend related parameters---------------------------
+  if(!show_legend){
+    aplot <- aplot +
+      theme(legend.position = "none")
+  }else {
+    aplot <- aplot +
+      theme(
+        legend.position = legend_pos,
+        legend.key = element_rect(fill = legend_key_backgrd),
+        legend.key.width = unit(legend_key_width, "cm"),
+        legend.key.height = unit(legend_key_height, "cm")
+      )
   }
 
   aplot <- aplot + a_geom
@@ -304,85 +381,6 @@ get_geom_sf <- function(
           axis.text.y = element_blank(),
           axis.ticks.y = element_blank()
         )
-    }
-
-    # -------------------scaling related parameters--------------------
-    if(!own_scale){
-      if(!is.null(aes_fill)) {
-        if(is.factor(sf[[aes_fill]])){
-          aplot <- aplot +
-            ggplot2::scale_fill_manual(
-              breaks = scale_breaks,
-              values = scale_values,
-              limits = scale_limits,
-              labels = scale_labels,
-              na.value = scale_na_value
-            )
-        }else{
-          aplot <- aplot +
-            ggplot2::scale_fill_gradientn(
-              breaks = scale_breaks,
-              limits = scale_limits,
-              labels = scale_labels,
-              colors = scale_colors,
-              values = scale_values,
-              na.value = scale_na_value
-            )
-        }
-      }else if(!is.null(aes_color)){
-        if(is.factor(sf[[aes_color]])){
-          aplot <- aplot +
-            ggplot2::scale_color_manual(
-              breaks = scale_breaks,
-              values = scale_values,
-              limits = scale_limits,
-              labels = scale_labels,
-              na.value = scale_na_value
-            )
-        }else{
-          aplot <- aplot +
-            ggplot2::scale_color_gradientn(
-              breaks = scale_breaks,
-              limits = scale_limits,
-              labels = scale_labels,
-              colors = scale_colors,
-              values = scale_values,
-              na.value = scale_na_value
-            )
-        }
-      }else if(!is.null(aes_size)){
-        if(is.factor(sf[[aes_size]])){
-          aplot <- aplot +
-            ggplot2::scale_size_manual(
-              breaks = scale_breaks,
-              values = scale_values,
-              limits = scale_limits,
-              labels = scale_labels,
-              na.value = scale_na_value
-            )
-        }else{
-          aplot <- aplot +
-            ggplot2::scale_size(
-              breaks = scale_breaks,
-              limits = scale_limits,
-              labels = scale_labels
-            )
-        }
-      }
-    }
-
-    # -------------------legend related parameters---------------------------
-    if(!show_legend){
-      aplot <- aplot +
-        theme(legend.position = "none")
-    }else {
-      aplot <- aplot +
-        theme(
-          legend.position = legend_pos,
-        legend.key = element_rect(fill = legend_key_backgrd),
-        legend.key.width = unit(legend_key_width, "cm"),
-        legend.key.height = unit(legend_key_height, "cm")
-      )
     }
 
     return(aplot)

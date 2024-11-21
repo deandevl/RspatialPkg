@@ -11,4 +11,5 @@ sf_union_asia_over_world      sf of unionized asia over world
 sf_world_centroid_pop         sf of continent centroids and pop.
 sf_world_pop                  sf of world with pop. with legend
 sf_xy_limits                  sf limit world to north america
+sf_world_coffee               sf of world coffee distribution
 dot_density_sf_d              demo that creates a SpatVector object for dot-density maps
