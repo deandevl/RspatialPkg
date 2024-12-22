@@ -20,7 +20,7 @@ elev_sr
 # Convert to data.frame
 elev_df <- as.data.frame(elev_sr, xy = T)
 # Display elev_spat
-elev_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = elev_df,
   aes_x = "x",
   aes_y = "y",
@@ -31,7 +31,6 @@ elev_plot <- RspatialPkg::get_geom_raster(
   y_major_breaks = seq(from = -1.25, to = 1.25, by = 0.5),
   scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
-elev_plot
 
 # Creating a clipping raster object
 clip_sr <- terra::rast(
@@ -47,7 +46,7 @@ clip_sr
 
 # Convert clip_sr to data.frame and display
 clip_df <- as.data.frame(clip_sr, xy = T)
-clip_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = clip_df,
   aes_x = "x",
   aes_y = "y",
@@ -57,7 +56,6 @@ clip_plot <- RspatialPkg::get_geom_raster(
   show_legend = F,
   scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
-clip_plot
 
 # Get a subset of values from elev_sr using clip_sr
 # The function ext() gets the extent of clip_sr
@@ -71,7 +69,7 @@ elev_sub_sr
 
 # Display resulting SpatRaster subset
 elev_sub_df <- as.data.frame(elev_sub_sr, xy = T)
-elev_sub_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = elev_sub_df,
   aes_x = "x",
   aes_y = "y",
@@ -80,7 +78,6 @@ elev_sub_plot <- RspatialPkg::get_geom_raster(
   subtitle = "Resolution: 0.5--Extent: 0, 1.5, -0.5, 0.5",
   scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
-elev_sub_plot
 
 # Get a subset SpatRaster object by using cell ids
 # cells 3 to 5 along y; 2 to 4 along x
@@ -89,7 +86,7 @@ elev_sub_ids_sr
 
 # Display resulting SpatRaster subset
 elev_sub_ids_df <- as.data.frame(elev_sub_ids_sr, xy = T)
-elev_sub_ids_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = elev_sub_ids_df,
   aes_x = "x",
   aes_y = "y",
@@ -98,4 +95,3 @@ elev_sub_ids_plot <- RspatialPkg::get_geom_raster(
   subtitle = "Cells 3 to 5 along y; Cells 2 to 4 along x--Extent: -1, 0.5, -1, 0.5",
   scale_colors = RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
 )
-elev_sub_ids_plot

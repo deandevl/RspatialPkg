@@ -25,7 +25,7 @@ elev_scratch_df <- terra::as.data.frame(
 str(elev_scratch_df)
 
 # Display the SpatRaster object using RSpatialPkg::get_geom_raster()
-elev_scratch_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = elev_scratch_df,
   aes_x = "x",
   aes_y = "y",
@@ -36,7 +36,6 @@ elev_scratch_plot <- RspatialPkg::get_geom_raster(
   scale_breaks = seq(from = 0, to = 40, by = 5),
   scale_labels = seq(from = 0, to = 40, by = 5)
 )
-elev_scratch_plot
 
 # Create the same SpatRaster object from a data.frame
 x <- seq(-1.25, 1.25, length.out = 6)
@@ -52,7 +51,7 @@ elev_scratch_2_df_sr
 
 # Display the SpatRaster
 df <- as.data.frame(elev_scratch_2_df_sr, xy = T)
-elev_scratch_2_df_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = df,
   aes_x = "x",
   aes_y = "y",
@@ -61,4 +60,3 @@ elev_scratch_2_df_plot <- RspatialPkg::get_geom_raster(
   scale_breaks = seq(from = 0, to = 40, by = 5),
   scale_labels = seq(from = 0, to = 40, by = 5)
 )
-elev_scratch_2_df_plot

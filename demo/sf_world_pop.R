@@ -2,13 +2,12 @@ library(ggplot2)
 library(spData)
 library(data.table)
 library(sf)
-library(magrittr)
 library(RColorBrewer)
 library(RspatialPkg)
 
-dt_sf <- data.table::as.data.table(spData::world) %>%
-  .[, pop := pop/10000] %>%
-  sf::st_as_sf(.)
+dt_sf <- data.table::as.data.table(spData::world) |>
+  _[, pop := pop/10000] |>
+  sf::st_as_sf()
 
 # Plot world with a fill aesthetic based on its "pop" attribute with default scaling
 RspatialPkg::get_geom_sf(
@@ -21,7 +20,7 @@ RspatialPkg::get_geom_sf(
   grid_line_color = "black"
 )
 
-# Repeat with defined scaling
+# Repeat with defined scaling for population
 RspatialPkg::get_geom_sf(
   sf = dt_sf,
   aes_fill = "pop",

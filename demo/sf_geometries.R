@@ -1,6 +1,5 @@
 library(ggplot2)
 library(sf)
-library(magrittr)
 library(RspatialPkg)
 
 # Create a sfc based polygon
@@ -27,32 +26,26 @@ line_sfc <- sf::st_sfc(sf::st_linestring(cbind(
 line_sfc
 
 # Display the above three geometries separately.
-polygon_plot <-
-  RspatialPkg::get_geom_sf(
-    sf = polygon_sfc,
-    sf_color = "blue",
-    sf_linewidth = 4,
-    sf_fill = "green"
-  )
-polygon_plot
+RspatialPkg::get_geom_sf(
+  sf = polygon_sfc,
+  sf_color = "blue",
+  sf_linewidth = 4,
+  sf_fill = "green"
+)
 
-points_plot <-
-  RspatialPkg::get_geom_sf(
-    sf = points_sf,
-    sf_color = "red",
-    sf_fill = "blue",
-    sf_stroke = 4,
-    sf_size = 8.0
-  )
-points_plot
+RspatialPkg::get_geom_sf(
+  sf = points_sf,
+  sf_color = "red",
+  sf_fill = "blue",
+  sf_stroke = 4,
+  sf_size = 8.0
+)
 
-line_plot <-
-  RspatialPkg::get_geom_sf(
-    sf = line_sfc,
-    sf_color = "red",
-    sf_linewidth = 8
-  )
-line_plot
+RspatialPkg::get_geom_sf(
+  sf = line_sfc,
+  sf_color = "red",
+  sf_linewidth = 8
+)
 
 # Display the above three geometries together.
 RspatialPkg::get_geom_sf(
@@ -61,14 +54,14 @@ RspatialPkg::get_geom_sf(
   sf_linewidth = 4,
   sf_fill = "yellow",
   title = "Overlaid geometries of polygon_sfc, points_sf, and line_sfc"
-) %>%
+) |>
 RspatialPkg::get_geom_sf(
   sf = points_sf,
   sf_color = "red",
   sf_fill = "blue",
   sf_size = 8.0,
   sf_stroke = 4
-) %>%
+) |>
 RspatialPkg::get_geom_sf(
   sf = line_sfc,
   sf_color = "green",

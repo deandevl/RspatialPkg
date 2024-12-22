@@ -1,6 +1,5 @@
 library(ggplot2)
 library(spData)
-library(magrittr)
 library(RspatialPkg)
 
 # Show the class of spData::world is a simple feature object
@@ -19,7 +18,7 @@ RspatialPkg::get_geom_sf(
   sf_alpha = 0.6,
   title = "Overlap India over Asia",
   subtitle = "Source: spdata::world"
-) %>%
+) |>
 RspatialPkg::get_geom_sf(
   sf = india_sf,
   sf_fill = "red"

@@ -1,10 +1,8 @@
 library(ggplot2)
 library(spData)
-library(magrittr)
-library(RspatialPkg)
-
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(RspatialPkg)
 
 # Subset the simple feature data.frame of `spData::world`
 #   where continent equals "Asia":
@@ -23,9 +21,8 @@ head(asia_sf)
 RspatialPkg::get_geom_sf(sf = asia_sf)
 
 # Layer simple feature spData::world with asia_sf filled as "red"
-RspatialPkg::get_geom_sf(sf = spData::world) %>%
+RspatialPkg::get_geom_sf(sf = spData::world) |>
 RspatialPkg::get_geom_sf(
-  gg = .,
   sf = asia_sf,
   sf_fill = "red"
 )

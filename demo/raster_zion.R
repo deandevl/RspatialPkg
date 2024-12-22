@@ -9,7 +9,7 @@ zion_park_sr <- terra::rast(raster_filepath)
 zion_park_df <- as.data.frame(zion_park_sr, xy = T)
 str(zion_park_df)
 
-zion_park_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = zion_park_df,
   aes_x = "x",
   aes_y = "y",
@@ -20,5 +20,3 @@ zion_park_plot <- RspatialPkg::get_geom_raster(
   scale_breaks = seq(from = 1000, to = 3000, by = 250),
   scale_labels = seq(from = 1000, to = 3000, by = 250)
 )
-zion_park_plot
-

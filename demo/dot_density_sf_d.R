@@ -3,7 +3,6 @@ library(sf)
 library(purrr)
 library(data.table)
 library(ggplot2)
-library(magrittr)
 library(RspatialPkg)
 
 data_str <- system.file("ex/lux.shp", package = "terra")
@@ -41,9 +40,8 @@ dots_sf <- RspatialPkg::dot_density_sf(
 # plot the dots
 RspatialPkg::get_geom_sf(
   sf = data_sf,
-) %>%
+) |>
 RspatialPkg::get_geom_sf(
-  gg = .,
   sf = dots_sf,
   sf_color = "red",
   sf_fill = "red",

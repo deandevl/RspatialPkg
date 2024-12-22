@@ -1,6 +1,5 @@
 library(ggplot2)
 library(sf)
-library(magrittr)
 library(data.table)
 library(spData)
 library(RColorBrewer)
@@ -16,15 +15,15 @@ continents <- unique(world_dfr_sf$continent)
 colors <- RColorBrewer::brewer.pal(8, "Set1")
 names(colors) <- continents
 
-world_dfr_sf <- world_dfr_sf %>%
-  data.table::as.data.table(.) %>%
-  .[, continent := as.factor(continent)] %>%
-  sf::st_as_sf(.)
+world_dfr_sf <- world_dfr_sf |>
+  data.table::as.data.table() |>
+  _[, continent := as.factor(continent)] |>
+  sf::st_as_sf()
 
-world_centroid_sf <- sf::st_centroid(world_dfr_sf, of_largest_polygon = TRUE) %>%
-  data.table::as.data.table(.) %>%
-  .[, pop_sz := sqrt(world_dfr_sf$pop) / 10000] %>%
-  sf::st_as_sf(.)
+world_centroid_sf <- sf::st_centroid(world_dfr_sf, of_largest_polygon = TRUE) |>
+  data.table::as.data.table() |>
+  _[, pop_sz := sqrt(world_dfr_sf$pop) / 10000] |>
+  sf::st_as_sf()
 
 RspatialPkg::get_geom_sf(
   sf = world_dfr_sf,
@@ -37,9 +36,8 @@ RspatialPkg::get_geom_sf(
   panel_color = "white",
   panel_border_color = "white",
   na_rm = T
-) %>%
+) |>
 RspatialPkg::get_geom_sf(
-  gg = .,
   sf = world_centroid_sf,
   aes_size = "pop_sz",
   own_scale = T,

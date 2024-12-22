@@ -8,7 +8,7 @@ scratch_df <- expand.grid(x = x, y = y)
 scratch_df$z <- runif(nrow(scratch_df))
 scratch_df$z4 <- scratch_df$z * 4
 
-scratch_plot <- RspatialPkg::get_geom_raster(
+RspatialPkg::get_geom_raster(
   df = scratch_df,
   aes_x = "x",
   aes_y = "y",
@@ -21,5 +21,3 @@ scratch_plot <- RspatialPkg::get_geom_raster(
   scale_breaks = seq(from = 0.0, to = 4.0, by = 0.5),
   scale_labels = seq(from = 0.0, to = 4.0, by = 0.5)
 )
-
-scratch_plot

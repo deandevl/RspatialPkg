@@ -29,10 +29,9 @@ polygon_sf <- RspatialPkg::matrix_to_sf(
 polygon_sf
 
 # Map the polygon simple feature
-polygon_plot <- RspatialPkg::get_geom_sf(
+RspatialPkg::get_geom_sf(
   sf = polygon_sf,
   sf_fill = "green",
   sf_size = 6,
   panel_color = "yellow"
 )
-polygon_plot

@@ -24,7 +24,7 @@ world_sf
 
 # Map the simple feature
 # We are limiting it to show just North America
-north_america_plot <- RspatialPkg::get_geom_sf(
+RspatialPkg::get_geom_sf(
   sf = world_sf,
   sf_fill = "brown"
 ) +
@@ -32,4 +32,3 @@ ggplot2::coord_sf(
   xlim = c(-179.0, -60.0),
   ylim = c(15.0, 72.0)
 )
-north_america_plot
